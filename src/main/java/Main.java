@@ -9,7 +9,7 @@ public class Main {
 
         JFrame todoFrame = new JFrame();
         todoFrame.setSize(600, 400);
-        todoFrame.setDefaultCloseOperation(todoFrame.EXIT_ON_CLOSE);
+        todoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         todoFrame.setLocationRelativeTo(null);
 
         JPanel todoPanel = new JPanel(new BorderLayout());

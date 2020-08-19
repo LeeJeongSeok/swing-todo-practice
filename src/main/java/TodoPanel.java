@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TodoPanel extends JFrame implements ActionListener {
+public class TodoPanel extends JPanel implements ActionListener {
 
     JTextArea todoListArea, finishListArea;
     JTextField inputTodo;

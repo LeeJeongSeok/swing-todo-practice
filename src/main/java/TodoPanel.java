@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class TodoPanel extends JPanel implements ActionListener{
 
@@ -14,6 +15,8 @@ public class TodoPanel extends JPanel implements ActionListener{
     JTextArea todoListArea, finishListArea;
     JTextField todoInputField;
     JButton addTodo, finishTodo;
+
+    ArrayList<String> todoList = new ArrayList<String>();
 
     public TodoPanel() {
         initComponent();
@@ -36,6 +39,7 @@ public class TodoPanel extends JPanel implements ActionListener{
 
         addTodo.addActionListener(this);
         finishTodo.addActionListener(this);
+
     }
 
     private void setComponentTitleAndBorder() {
@@ -67,15 +71,31 @@ public class TodoPanel extends JPanel implements ActionListener{
 
     private void addTask(String task) {
         if (!task.equals("")) {
+            todoList.add(task);
             todoListArea.append(task + "\n");
             todoInputField.setText("");
         }
     }
 
+    private boolean isHere(String task) {
+        if (todoList.contains(task)) {
+            finishTask(task);
+            return true;
+        }
+        System.out.println("TodoList에 없는 항목은 완료시킬수 없습니다.");
+        return false;
+    }
+
     private void finishTask(String task) {
-        if (!task.equals("")) {
+
+        if (isHere(task)) {
+            removeTaskInTodoList(task);
             finishListArea.append(task + "\n");
             todoInputField.setText("");
         }
+    }
+
+    private void removeTaskInTodoList(String task) {
+        todoList.remove(task);
     }
 }

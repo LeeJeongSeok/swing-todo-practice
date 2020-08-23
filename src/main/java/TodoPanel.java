@@ -61,41 +61,41 @@ public class TodoPanel extends JPanel implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource().equals(addTodo)) {
             addTask(todoInputField.getText());
-        } else {
-            finishTask(todoInputField.getText());
         }
+        finishTask(todoInputField.getText());
     }
 
     private void addTask(String task) {
-        if (!task.equals("")) {
-            todoList.add(task);
-            todoListArea.append(task + "\n");
-            todoInputField.setText("");
-        }
-    }
 
-    private boolean isHere(String task) {
-        if (todoList.contains(task)) {
-            finishTask(task);
-            return true;
+        if (!isEmpty(task)) {
+            appendAndSettingText(task, todoListArea);
         }
-        System.out.println("TodoList에 없는 항목은 완료시킬수 없습니다.");
-        return false;
+
+        todoList.add(task);
     }
 
     private void finishTask(String task) {
 
-        if (isHere(task)) {
-            removeTaskInTodoList(task);
-            finishListArea.append(task + "\n");
-            todoInputField.setText("");
+        if (isExist(task)) {
+            appendAndSettingText(task, finishListArea);
         }
-    }
 
-    private void removeTaskInTodoList(String task) {
         todoList.remove(task);
     }
+
+    private boolean isExist(String task) {
+        return todoList.contains(task);
+    }
+
+    private boolean isEmpty(String text) {
+        return text.equals("");
+    }
+
+    private void appendAndSettingText(String task, JTextArea ListArea) {
+        ListArea.append(task + "\n");
+        todoInputField.setText("");
+    }
+
 }

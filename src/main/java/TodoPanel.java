@@ -82,7 +82,9 @@ public class TodoPanel extends JPanel implements ActionListener{
             appendAndSettingText(task, finishListArea);
         }
 
+        deleteTaskFromTodoList(task);
         todoList.remove(task);
+
     }
 
     private boolean isExist(String task) {
@@ -96,6 +98,17 @@ public class TodoPanel extends JPanel implements ActionListener{
     private void appendAndSettingText(String task, JTextArea ListArea) {
         ListArea.append(task + "\n");
         todoInputField.setText("");
+    }
+
+    private void deleteTaskFromTodoList(String text) {
+
+        String t = todoListArea.getText();
+
+        if (t.contains(text)) {
+            System.out.println("해당 문자열이 있습니다.");
+            t.replaceAll(text, "");
+            todoListArea.setText(t);
+        }
     }
 
 }

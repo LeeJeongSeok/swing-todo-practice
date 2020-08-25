@@ -16,7 +16,7 @@ public class TodoPanel extends JPanel implements ActionListener{
     JTextField todoInputField;
     JButton addTodo, finishTodo;
 
-    ArrayList<String> todoList = new ArrayList<String>();
+    ArrayList<String> todoList;
 
     public TodoPanel() {
         initComponent();
@@ -26,22 +26,28 @@ public class TodoPanel extends JPanel implements ActionListener{
     }
 
     private void initComponent() {
-        todoListArea = new JTextArea();
-        finishListArea = new JTextArea();
-        todoInputField = new JTextField();
+
         inputPanel = new JPanel(new FlowLayout());
         inputPanel.setBorder(new TitledBorder("Input Area"));
 
+        todoListArea = new JTextArea();
+        finishListArea = new JTextArea();
+        todoInputField = new JTextField();
+
         addTodo = new JButton("add");
         finishTodo = new JButton("finish");
-        todoInputField.setPreferredSize(new Dimension(400, 50));
 
+        todoInputField.setPreferredSize(new Dimension(400, 50));
 
         addTodo.addActionListener(this);
         finishTodo.addActionListener(this);
 
+        todoList = new ArrayList<String>();
+
     }
 
+
+    // TextArea 별 Title 추가
     private void setComponentTitleAndBorder() {
         todoListArea.setText("====== Today's To-Do List ======\n");
         todoListArea.setBorder(new TitledBorder("todoList"));
@@ -50,6 +56,8 @@ public class TodoPanel extends JPanel implements ActionListener{
         finishListArea.setBorder(new TitledBorder("finishList"));
     }
 
+
+    // 입력받는 필드와, 버튼에 대한 패널을 따로 만들어서 배치시킴
     private void locatedComponent() {
         add(todoListArea, BorderLayout.WEST);
         add(finishListArea, BorderLayout.CENTER);
@@ -63,8 +71,9 @@ public class TodoPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addTodo)) {
             addTask(todoInputField.getText());
+        } else {
+            finishTask(todoInputField.getText());
         }
-        finishTask(todoInputField.getText());
     }
 
     private void addTask(String task) {
@@ -102,12 +111,12 @@ public class TodoPanel extends JPanel implements ActionListener{
 
     private void deleteTaskFromTodoList(String text) {
 
-        String t = todoListArea.getText();
+        String todoListAreaText = todoListArea.getText();
 
-        if (t.contains(text)) {
+        if (todoListAreaText.contains(text)) {
             System.out.println("해당 문자열이 있습니다.");
-            t.replaceAll(text, "");
-            todoListArea.setText(t);
+            todoListAreaText = todoListAreaText.replace(text, "");
+            todoListArea.setText(todoListAreaText);
         }
     }
 

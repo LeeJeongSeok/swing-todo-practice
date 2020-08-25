@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class TodoFrame extends JFrame {
 
@@ -9,5 +12,7 @@ public class TodoFrame extends JFrame {
 
         setContentPane(new TodoPanel());
         setVisible(true);
+
     }
+
 }
